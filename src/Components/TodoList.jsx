@@ -34,15 +34,17 @@ const TodoList = () => {
     <>
       <form
         action=""
-        className="w-50% flex justify-center"
+        className="w-50% flex justify-center my-5  "
         onSubmit={handleSubmitTodo}
       >
         <input
+          className="p-4 outline-none bg-inherit text-3xl border-b border-dotted font-light "
           type="text"
           name="task"
           placeholder="What need to be done today?"
           onChange={handleTodoChange}
           value={todo.task}
+          size={50}
         />
       </form>
       <div className=" w-50%  flex flex-col justify-center  items-center ">
