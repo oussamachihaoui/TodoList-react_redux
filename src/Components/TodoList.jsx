@@ -10,7 +10,6 @@ const TodoList = () => {
 
   // states
   const [todo, setTodo] = useState({
-    id: uuidv4(),
     task: "",
     done: false,
     isEdited: false,
@@ -25,11 +24,12 @@ const TodoList = () => {
 
   const handleSubmitTodo = function (e) {
     e.preventDefault();
-    dispatch(addTodo(todo));
+
+    // MUST REMEMBER
+    dispatch(addTodo({ ...todo, id: uuidv4(), countOfEdit: 0 }));
     setTodo({ ...todo, task: "" });
   };
 
-  console.log(todo);
   return (
     <>
       <form
@@ -38,7 +38,7 @@ const TodoList = () => {
         onSubmit={handleSubmitTodo}
       >
         <input
-          className="p-4 outline-none bg-inherit text-3xl border-b border-dotted font-light "
+          className="p-4 outline-none bg-inherit text-3xl border-b border-dotted font-light placeholder:italic "
           type="text"
           name="task"
           placeholder="What need to be done today?"

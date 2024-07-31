@@ -7,17 +7,19 @@ const todo = createSlice({
     todos: [
       {
         id: uuidv4(),
-        task: "learn how to handle state in react",
+        task: "Gym training at 10pm",
         done: false,
         isEdited: false,
         createdAt: new Date().toLocaleDateString(),
+        countOfEdit: 0,
       },
       {
         id: uuidv4(),
-        task: "make projects",
+        task: "Make more React&Redux projects",
         done: false,
         isEdited: false,
         createdAt: new Date().toLocaleDateString(),
+        countOfEdit: 0,
       },
     ],
   },
@@ -30,11 +32,37 @@ const todo = createSlice({
     },
     doneTodo: (state, action) => {
       state.todos.map((todo) =>
-        action.payload === todo.id ? (todo.done = !todo.done) : todo
+        action.payload === todo.id ? (todo.done = !todo.done) : todo.done
+      );
+    },
+    editTodo: (state, action) => {
+      state.todos.map((todo) =>
+        todo.id === action.payload
+          ? (todo.isEdited = !todo.isEdited)
+          : todo.isEdited
+      );
+    },
+    updateTodoHandler: (state, action) => {
+      state.todos.map((todo) =>
+        todo.id === action.payload.id
+          ? (todo.task = action.payload.task)
+          : todo.task
+      );
+    },
+    counterAdd: (state, action) => {
+      state.todos.map((todo) =>
+        todo.id === action.payload ? (todo.countOfEdit += 1) : todo.countOfEdit
       );
     },
   },
 });
 
 export default todo.reducer;
-export const { addTodo, deleteTodo, doneTodo } = todo.actions;
+export const {
+  addTodo,
+  deleteTodo,
+  doneTodo,
+  editTodo,
+  updateTodoHandler,
+  counterAdd,
+} = todo.actions;
